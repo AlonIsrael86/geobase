@@ -101,13 +101,13 @@ export default function HomePage() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <SignedOut>
-              <SignInButton mode="modal" afterSignInUrl="/dashboard">
-                <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-all">
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+            <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-all">
                   התחברות
                 </button>
               </SignInButton>
-              <SignUpButton mode="modal" afterSignUpUrl="/dashboard">
-                <button className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition-all">
+              <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+              <button className="border border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary/10 transition-all">
                   הרשמה
                 </button>
               </SignUpButton>
