@@ -334,75 +334,81 @@ export default function SubmitPage() {
                 </div>
               )}
 
-              {/* Answer */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="text-right flex items-center gap-2">
-                    <Label htmlFor="answer" className="text-base font-medium text-right">
-                      התשובה *
-                    </Label>
-                    {formData.question && formData.category && (
-                      <button
-                        type="button"
-                        onClick={handleSuggestAnswer}
-                        disabled={isGeneratingAnswer || !formData.question || !formData.category}
-                        className="text-sm text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
-                      >
-                        {isGeneratingAnswer ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            יוצר תשובה...
-                          </>
-                        ) : (
-                          <>
-                            <Sparkles className="w-4 h-4" />
-                            הצע תשובה עם AI
-                          </>
-                        )}
-                      </button>
-                    )}
-                    <p className="text-xs text-muted-foreground mt-0.5 hebrew-text text-right">
-                      מומלץ 100-200 מילים
-                    </p>
-                  </div>
-                  <span
-                    className={cn(
-                      "text-sm font-medium ltr-nums tabular-nums",
-                      wordCountStatus === "empty" && "text-muted-foreground",
-                      wordCountStatus === "warning" && "text-amber-400",
-                      wordCountStatus === "good" && "text-primary",
-                      wordCountStatus === "error" && "text-red-400"
-                    )}
-                  >
-                    {wordCount}/150 מילים
-                  </span>
-                </div>
-                <Textarea
-                  id="answer"
-                  value={formData.answer}
-                  onChange={(e) =>
-                    setFormData({ ...formData, answer: e.target.value })
-                  }
-                  placeholder="כתוב את התשובה המלאה..."
-                  className={cn(
-                    "min-h-[160px] text-base resize-none hebrew-text",
-                    wordCountStatus === "error" &&
-                      "border-red-500 focus-visible:ring-red-500"
-                  )}
-                  dir="rtl"
-                  required
-                />
-                {wordCountStatus === "warning" && (
-                  <p className="text-sm text-amber-400 hebrew-text text-right">
-                    מומלץ לכתוב לפחות 100 מילים
-                  </p>
-                )}
-                {wordCountStatus === "error" && (
-                  <p className="text-sm text-red-400 hebrew-text text-right">
-                    התשובה ארוכה מדי - נסה לקצר ל-200 מילים
-                  </p>
-                )}
-              </div>
+{/* Answer */}
+<div className="space-y-2">
+  <div className="flex items-center justify-between">
+    <div className="text-right flex items-center gap-2">
+      <Label htmlFor="answer" className="text-base font-medium text-right">
+        התשובה *
+      </Label>
+      {formData.question && formData.category && (
+        <button
+          type="button"
+          onClick={handleSuggestAnswer}
+          disabled={isGeneratingAnswer || !formData.question || !formData.category}
+          className="text-sm text-primary hover:text-primary/80 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+        >
+          {isGeneratingAnswer ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              יוצר תשובה...
+            </>
+          ) : (
+            <>
+              <Sparkles className="w-4 h-4" />
+              הצע תשובה עם AI
+            </>
+          )}
+        </button>
+      )}
+      <p className="text-xs text-muted-foreground mt-0.5 hebrew-text text-right">
+        מומלץ 100-200 מילים
+      </p>
+    </div>
+    <span
+      className={cn(
+        "text-sm font-medium ltr-nums tabular-nums",
+        wordCountStatus === "empty" && "text-muted-foreground",
+        wordCountStatus === "warning" && "text-amber-400",
+        wordCountStatus === "good" && "text-primary",
+        wordCountStatus === "error" && "text-red-400"
+      )}
+    >
+      {wordCount}/150 מילים
+    </span>
+  </div>
+  
+  {/* Coming Soon Notice */}
+  <p className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md border border-border/50 text-right">
+    💡 <span className="font-medium">בקרוב:</span> התשובות יותאמו אוטומטית לעסק שלך על בסיס המידע שתעלה למאגר הידע
+  </p>
+  
+  <Textarea
+    id="answer"
+    value={formData.answer}
+    onChange={(e) =>
+      setFormData({ ...formData, answer: e.target.value })
+    }
+    placeholder="כתוב את התשובה המלאה..."
+    className={cn(
+      "min-h-[160px] text-base resize-none hebrew-text",
+      wordCountStatus === "error" &&
+        "border-red-500 focus-visible:ring-red-500"
+    )}
+    dir="rtl"
+    required
+  />
+  {wordCountStatus === "warning" && (
+    <p className="text-sm text-amber-400 hebrew-text text-right">
+      מומלץ לכתוב לפחות 100 מילים
+    </p>
+  )}
+  {wordCountStatus === "error" && (
+    <p className="text-sm text-red-400 hebrew-text text-right">
+      התשובה ארוכה מדי - נסה לקצר ל-200 מילים
+    </p>
+  )}
+</div>
 
               {/* Image Upload */}
               <div className="space-y-2">
