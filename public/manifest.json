@@ -1,0 +1,25 @@
+{
+    "name": "GEOBase - פלטפורמת תוכן חכם למנועי AI",
+    "short_name": "GEOBase",
+    "description": "פלטפורמה לניהול שאלות ותשובות ויצירת תוכן מותאם למנועי AI",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a1628",
+    "theme_color": "#22c55e",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "lang": "he",
+    "dir": "rtl"
+  }
+  
