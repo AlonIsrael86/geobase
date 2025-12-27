@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  role      String   @default("client")
+  clientId  String?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id             String          @id @default(cuid())
+  name           String
+  slug           String          @unique
+  logoUrl        String?
+  users          User[]
+  categories     Category[]
+  submissions    Submission[]
+  knowledgeFiles KnowledgeFile[]
+  aiSuggestions  AISuggestion[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Category {
+  id          String       @id @default(cuid())
+  name        String
+  clientId    String
+  client      Client       @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+  createdAt   DateTime     @default(now())
+  
+  @@unique([clientId, name])
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String   @db.Text
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  imageUrl    String?
+  source      String?
+  wordCount   Int
+  status      String   @default("new")
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model KnowledgeFile {
+  id        String   @id @default(cuid())
+  filename  String
+  fileType  String
+  fileUrl   String
+  fileSize  Int
+  content   String?  @db.Text
+  status    String   @default("processing") // processing, ready, error
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AISuggestion {
+  id           String    @id @default(cuid())
+  type         String    // "question", "answer", "qa_pair"
+  question     String
+  answer       String    @db.Text
+  source       String    // "knowledge_base", "web_search", "ai_generated"
+  sourceUrls   String?   // JSON array of source URLs
+  confidence   Float?    // AI confidence score 0-1
+  accepted     Boolean   @default(false)
+  rejectedAt   DateTime?
+  submissionId String?   // if converted to a real submission
+  clientId     String
+  client       Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt    DateTime  @default(now())
+}
+

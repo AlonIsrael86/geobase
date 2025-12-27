@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 8200academy + Just In Time Dark Theme */
+:root {
+  --background: 210 50% 8%;
+  --foreground: 210 20% 95%;
+  --card: 210 45% 11%;
+  --card-foreground: 210 20% 95%;
+  --popover: 210 45% 11%;
+  --popover-foreground: 210 20% 95%;
+  --primary: 142 76% 46%;
+  --primary-foreground: 210 50% 8%;
+  --secondary: 210 40% 15%;
+  --secondary-foreground: 210 20% 90%;
+  --muted: 210 40% 15%;
+  --muted-foreground: 210 15% 55%;
+  --accent: 142 76% 46%;
+  --accent-foreground: 210 50% 8%;
+  --destructive: 0 62.8% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 35% 18%;
+  --input: 210 35% 18%;
+  --ring: 142 76% 46%;
+  --radius: 0.75rem;
+  
+  /* Status colors */
+  --status-new: 217 91% 60%;
+  --status-in-article: 270 70% 60%;
+  --status-published: 142 76% 46%;
+  --status-draft: 210 40% 50%;
+  --status-editing: 45 93% 47%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Heebo', sans-serif;
+  }
+  html {
+    direction: rtl;
+  }
+}
+
+@layer utilities {
+  /* LTR for numbers */
+  .ltr-nums {
+    direction: ltr;
+    unicode-bidi: embed;
+  }
+  
+  /* Fix Hebrew text with punctuation (question marks at end) */
+  .hebrew-text {
+    unicode-bidi: plaintext;
+  }
+  
+  /* Flex row reverse for RTL proper order */
+  .rtl-flex {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  /* Green gradient button */
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-emerald-500 text-primary-foreground font-medium;
+  }
+  
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10;
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+  
+  /* Glow effect */
+  .glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  
+  /* Scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+  
+  .animate-checkmark {
+    animation: checkmark 0.5s ease-out forwards;
+  }
+  
+  /* Stagger children */
+  .stagger > * {
+    @apply opacity-0;
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  .stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .stagger > *:nth-child(5) { animation-delay: 200ms; }
+}
+
+/* Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+:focus:not(:focus-visible) {
+  @apply outline-none ring-0;
+}
+
+/* Custom selection */
+::selection {
+  @apply bg-primary/30 text-foreground;
+}
+
+/* Status badges */
+.status-new {
+  @apply bg-blue-500/20 text-blue-400 border-blue-500/30;
+}
+
+.status-in-article {
+  @apply bg-purple-500/20 text-purple-400 border-purple-500/30;
+}
+
+.status-published {
+  @apply bg-primary/20 text-primary border-primary/30;
+}
+
+.status-draft {
+  @apply bg-slate-500/20 text-slate-400 border-slate-500/30;
+}
+
+.status-editing {
+  @apply bg-amber-500/20 text-amber-400 border-amber-500/30;
+}
