@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getStats } from "@/lib/db-actions";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const stats = await getStats();
@@ -13,6 +15,11 @@ export async function GET() {
     );
   }
 }
+
+
+
+
+
 
 
 

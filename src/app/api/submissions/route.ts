@@ -6,6 +6,8 @@ import {
   deleteSubmissions,
 } from "@/lib/db-actions";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const submissions = await getSubmissions();
@@ -63,6 +65,11 @@ export async function DELETE(req: NextRequest) {
     );
   }
 }
+
+
+
+
+
 
 
 

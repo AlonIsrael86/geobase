@@ -8,6 +8,8 @@ import {
   seedDefaultCategories,
 } from "@/lib/db-actions";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -93,6 +95,11 @@ export async function PUT() {
     );
   }
 }
+
+
+
+
+
 
 
 
